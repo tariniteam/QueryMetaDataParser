@@ -28,7 +28,7 @@ def get_non_whitespace_token_list(token_list):
     
 def extract_table_identifiers(token_stream):
     pass
-    # """yields tuples of (schema_name, table_name, table_alias)"""
+    # """yields tuples of (schema_name, table_name, table_alias)""" This is fir testing
 
     # for item in token_stream:
     #     if isinstance(item, IdentifierList):
