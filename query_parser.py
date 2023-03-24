@@ -5,6 +5,7 @@ from sqlparse.compat import StringIO
 from sqlparse.tokens import Name
 from sqlparse.sql import IdentifierList, Identifier, Function
 
+
 def token_to_list(token):
     token_list = list(token)
     return token_list
