@@ -5,40 +5,21 @@
     <title>Display Metadata</title>
 </head>
 <body>
-Choose type of Metadata
 
-
-<form>
-        <h3><table><form action="" method="POST">
-          <td>
-          <label>Choose Type of Metadata:</label>
-            <select name="dropdownlist_option" width="300px">
-            {% for x in results %}
-             <option value="{{ x }}"{% if loop.first %} SELECTED{% endif %}>{{ x }}</option>
-            {% endfor %}
-            </select>
-          </td>
+<form action="{{url_for ('display_metadata') }}" method="POST">
+     <h2>An Ordered HTML List</h2>
+     <ol>
+           {%for x in Jinja_list %}
+             <li>{{ x }}</li>
+            {%endfor%}
+     </ol>
 </form>
 
-<table>
-  <tr>
-    <th>Schemas</th>
-    <th>Tables</th>
-    <th>Columns</th>
-  </tr>
-  <tr>
-    <td>schemaname</td>
-    <td>TableName</td>
-    <td>ColumnName</td>
-  </tr>
-  <tr>
-    <td>schemaname</td>
-    <td>TableName</td>
-    <td>ColumnName</td>
-  </tr>
-</table>
-
 <input type="submit" name="Download Data" value="Download Data"><br>
+
+<form action="{{url_for ('type_of_metadata') }}" method="POST">
+    <input type="submit" name="Check other types of Metadata" value="Check other types of Metadata" action="{{url_for ('type_of_metadata') }}">
+</form>
 </body>
 </html>
 

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Type of Metadata</title>
+</head>
+<body>
+          <form action="{{url_for ('display_metadata') }}" method="POST">
+            <label>Choose Type of Metadata:</label>
+            <select name="dropdownlist_option" id="dropdownlist_option" width="300px" class="selectpicker form-control" action="{{url_for ('display_metadata') }}">
+            {% for x in results %}
+             <option name= "dropdownoption" value="{{ x }}" >{{ x }}</option>
+            {% endfor %}
+            </select>
+              <input type="submit" value="Choose" action="{{url_for ('display_metadata') }}">
+          </form>
+
+</body>
+</html>
+
