@@ -27,6 +27,12 @@
                 controllerAs: 'vm'
             })
 
+            .when('/uploadsqlscript', {
+                controller: 'uploadsqlscriptController',
+                templateUrl: 'uploadsqlscript/uploadsqlscript.view.html',
+                controllerAs: 'vm'
+            })
+
             .otherwise({ redirectTo: '/login' });
     }
 
