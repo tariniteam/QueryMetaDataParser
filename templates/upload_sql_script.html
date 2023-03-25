@@ -6,7 +6,10 @@
 </head>
 <body>
 <h1>upload_sql_script</h1>
-
+    <form action="{{url_for ('upload_sql_script') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" />
+        <input type="submit" value="Upload" action="{{url_for ('upload_sql_script') }}">
+    </form>
 
 </body>
 </html>
