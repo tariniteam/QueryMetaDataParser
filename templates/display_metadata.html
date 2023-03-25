@@ -12,7 +12,7 @@ Choose type of Metadata
         <h3><table><form action="" method="POST">
           <td>
           <label>Choose Type of Metadata:</label>
-            <select name="option" width="300px">
+            <select name="dropdownlist_option" width="300px">
             {% for x in results %}
              <option value="{{ x }}"{% if loop.first %} SELECTED{% endif %}>{{ x }}</option>
             {% endfor %}
