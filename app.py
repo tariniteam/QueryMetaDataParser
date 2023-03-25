@@ -1,5 +1,6 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect,url_for
 import sqlite3 as sq
+import os
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST' ])
@@ -27,12 +28,12 @@ def successful_login():
   if request.method =='POST':
     return render_template('upload_sql_script.html')
 
-@app.route('/upload_sql_script', methods = ['POST'])
+@app.route('/upload_sql_script', methods=['GET', 'POST' ])
 def upload_sql_script():
     if request.method == 'POST':
         f = request.files['file']
         f.save(f.filename)
-        return render_template("successful_file_upload.html") #, name = f.filename)
+        return render_template("successful_file_upload.html", name = f.filename)
 
 @app.route('/successful_file_upload', methods = ['POST'])
 def display_metadata():
