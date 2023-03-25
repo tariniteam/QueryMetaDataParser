@@ -1,7 +1,18 @@
-from flask import Flask, request, render_template, redirect,url_for
+from flask import Flask, request, render_template, redirect,url_for, flash
 import sqlite3 as sq
 import os
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = './UploadedSQLScripts'
+ALLOWED_EXTENSIONS = {'sql'}
+
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @app.route('/', methods=['GET', 'POST' ])
 def index():
@@ -31,9 +42,19 @@ def successful_login():
 @app.route('/upload_sql_script', methods=['GET', 'POST' ])
 def upload_sql_script():
     if request.method == 'POST':
-        f = request.files['file']
-        f.save(f.filename)
-        return render_template("successful_file_upload.html", name = f.filename)
+        #f = request.files['file']
+        #f.save(f.filename)
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return render_template("successful_file_upload.html", name=filename)
 
 @app.route('/successful_file_upload', methods = ['POST'])
 def display_metadata():
