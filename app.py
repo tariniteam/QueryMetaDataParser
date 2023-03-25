@@ -56,10 +56,21 @@ def upload_sql_script():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return render_template("successful_file_upload.html", name=filename)
 
-@app.route('/successful_file_upload', methods = ['POST'])
+@app.route('/successful_file_upload', methods=['GET', 'POST' ])
 def display_metadata():
-    if request.method == 'POST':
-        return render_template('display_metadata.html')
+    #if request.method == 'POST':
+        connection = sq.connect('QMP_DB.db')
+        cursor = connection.cursor()
+        #name_var = request.form['name_id']
+        #password_var = request.form['password_id']
+        dropdownlist ="SELECT name from dropdownlist order by name "
+        cursor.execute(dropdownlist)
+        results = cursor.fetchall()
+        print (results)
+        string_list = [''.join(i) for i in results]
+        print (string_list)
+        return render_template('display_metadata.html', results=string_list)
+
 
 if __name__ == "__main__":
      app.run(debug=True)
