@@ -34,8 +34,13 @@ def get_joins_used ():
     return Jinja_list_JoinsUsed
 
 def get_all_metadata ():
-    Jinja_list_AllMetadata = ['Metadata1', 'Metadata2']
-    return Jinja_list_AllMetadata
+    Jinja_list_QueryType = ['QueryType1', 'QueryType2']
+    Jinja_list_Schemas = ['Schema1', 'Schema2']
+    Jinja_list_Tables = ['Table1', 'Table2']
+    Jinja_list_Columns = ['Column1', 'Column2']
+    Jinja_list_FilterConditions = ['Filter1', 'Filter2']
+    Jinja_list_JoinsUsed = ['Join1', 'Join2']
+    return Jinja_list_QueryType, Jinja_list_Schemas, Jinja_list_Tables, Jinja_list_Columns, Jinja_list_FilterConditions, Jinja_list_JoinsUsed
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -105,28 +110,41 @@ def display_metadata():
         user_dropdown_selection = request.form.get('dropdownlist_option')
         print("user_dropdown_selection", user_dropdown_selection)
 
-        Jinja_list_AllMetadata = get_all_metadata()
-        Jinja_list_Columns  = get_column_list()
-        Jinja_list_FilterConditions  = get_filter_condition_list()
-        Jinja_list_JoinsUsed   = get_joins_used()
-        Jinja_list_QueryType   = get_query_type()
-        Jinja_list_Schemas  = get_schema_list()
-        Jinja_list_Tables = get_table_list()
-
         if  (user_dropdown_selection == 'AllMetadata' ):
-           return render_template('display_metadata.html', Jinja_list=Jinja_list_AllMetadata)
+           Header_For_MetaData = "All Metadata:"
+           Jinja_list_QueryType, Jinja_list_Schemas, Jinja_list_Tables, Jinja_list_Columns, Jinja_list_FilterConditions, Jinja_list_JoinsUsed = get_all_metadata()
+           Jinja_list_AllMetadata = [{'header': 'Query Types:' , 'data': Jinja_list_QueryType},
+                                     {'header': 'Schemas:'     , 'data': Jinja_list_Schemas},
+                                     {'header': 'Tables:'      , 'data': Jinja_list_Tables},
+                                     {'header': 'Columns:'     , 'data': Jinja_list_Columns},
+                                     {'header':'Filters:'      , 'data': Jinja_list_FilterConditions},
+                                     {'header': 'Joins:'       , 'data': Jinja_list_JoinsUsed} ]
+           return render_template('display_all_metadata.html', Jinja_list_AllMetadata=Jinja_list_AllMetadata, Header_For_MetaData= Header_For_MetaData )
+
         elif (user_dropdown_selection == 'Columns' ):
-           return render_template('display_metadata.html', Jinja_list=Jinja_list_Columns)
+           Header_For_MetaData = "Column Metadata:"
+           Jinja_list_Columns = get_column_list()
+           return render_template('display_metadata.html', Jinja_list=Jinja_list_Columns, Header_For_MetaData= Header_For_MetaData)
         elif (user_dropdown_selection == 'FilterConditions'):
-           return render_template('display_metadata.html', Jinja_list=Jinja_list_FilterConditions)
+           Header_For_MetaData = "Filter Conditions Metadata:"
+           Jinja_list_FilterConditions = get_filter_condition_list()
+           return render_template('display_metadata.html', Jinja_list=Jinja_list_FilterConditions, Header_For_MetaData= Header_For_MetaData)
         elif (user_dropdown_selection == 'JoinsUsed'):
-           return render_template('display_metadata.html', Jinja_list=Jinja_list_JoinsUsed)
+           Header_For_MetaData = "Joins Used Metadata:"
+           Jinja_list_JoinsUsed = get_joins_used()
+           return render_template('display_metadata.html', Jinja_list=Jinja_list_JoinsUsed, Header_For_MetaData =Header_For_MetaData)
         elif (user_dropdown_selection == 'QueryType'):
-           return render_template('display_metadata.html', Jinja_list=Jinja_list_QueryType)
+           Header_For_MetaData = "Query type Metadata:"
+           Jinja_list_QueryType = get_query_type()
+           return render_template('display_metadata.html', Jinja_list=Jinja_list_QueryType, Header_For_MetaData =Header_For_MetaData)
         elif (user_dropdown_selection == 'Schemas'):
-            return render_template('display_metadata.html', Jinja_list=Jinja_list_Schemas)
+            Header_For_MetaData = "Schema Metadata:"
+            Jinja_list_Schemas = get_schema_list()
+            return render_template('display_metadata.html', Jinja_list=Jinja_list_Schemas, Header_For_MetaData=Header_For_MetaData)
         elif (user_dropdown_selection == 'Tables'):
-            return render_template('display_metadata.html', Jinja_list=Jinja_list_Tables)
+            Header_For_MetaData = "Table Metadata:"
+            Jinja_list_Tables = get_table_list()
+            return render_template('display_metadata.html', Jinja_list=Jinja_list_Tables,Header_For_MetaData= Header_For_MetaData)
         return render_template('display_metadata.html')
 
 @app.route('/display_metadata', methods=['GET', 'POST'])

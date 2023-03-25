@@ -5,13 +5,16 @@
     <title>Display Metadata</title>
 </head>
 <body>
+
+
 <form action="{{url_for ('display_metadata') }}" method="POST">
-     <h2>{{Header_For_MetaData}}</h2>
-     <ol>
-           {%for x in Jinja_list %}
-             <li>{{ x }}</li>
-            {%endfor%}
-     </ol>
+    <h2>{{Header_For_MetaData}}</h2>
+    {% for dict_item in Jinja_list_AllMetadata %}
+      <div>
+      <tr><h3>{{ dict_item.header }}</h3></tr>
+      <tr>{{ dict_item.data }}</tr>
+      </div>
+    {% endfor %}
 </form>
 
 
