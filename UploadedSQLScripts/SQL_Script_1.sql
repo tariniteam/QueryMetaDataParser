@@ -1,0 +1,1 @@
+SELECT ColumnName1, ColumnName2 FROM reporting.TableName WHERE ColumnName = 'Title'
