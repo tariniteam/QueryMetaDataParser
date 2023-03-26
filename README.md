@@ -6,6 +6,8 @@
 
 ## **Architecture Diagram**
 
+![alt text](https://github.com/tariniteam/QueryMetaDataParser/blob/main/Project%20Documentation/Implementation%20Screenshots/QMP%20Architecture%20Diagram%20Final.png)
+
 ## **Prerequisites**
 
 ### Tools/Technologies used
