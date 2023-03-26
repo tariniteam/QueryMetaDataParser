@@ -2,45 +2,50 @@ from flask import Flask, request, render_template, redirect,url_for, flash
 import sqlite3 as sq
 import os
 from werkzeug.utils import secure_filename
+from QueryMetaDataParser import query_parser
 
+Q = query_parser()
 UPLOAD_FOLDER = './UploadedSQLScripts'
 ALLOWED_EXTENSIONS = {'sql'}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-def get_query_type ():
-    Jinja_list_QueryType = ['DML --> Select']
-    return Jinja_list_QueryType
+######### Sample data can be used for testing ##################
+#def get_query_type ():
+    #Jinja_list_QueryType = ['DML --> Select']
+    #return Jinja_list_QueryType
 
-def get_schema_list ():
-    Jinja_list_Schemas = ['rec --> tblTeam', 'reporting --> tblLead']
-    return Jinja_list_Schemas
+#def get_schema_list ():
+    #Jinja_list_Schemas = ['rec --> tblTeam', 'reporting --> tblLead']
+    #return Jinja_list_Schemas
 
-def get_table_list ():
-    Jinja_list_Tables = ['rec.tblTeam', 'reporting.tblLead']
-    return Jinja_list_Tables
+#def get_table_list ():
+    #Jinja_list_Tables = ['rec.tblTeam', 'reporting.tblLead']
+    #return Jinja_list_Tables
 
-def get_column_list ():
-    Jinja_list_Columns = ['rec.tblTeam.Col1', 'rec.tblTeam.Col2', 'reporting.tblLead.Col4','reporting.tblLead.Col5', 'reporting.tblLead.Col6', 'reporting.tblLead.Col7' ]
-    return Jinja_list_Columns
+#def get_column_list ():
+    #Jinja_list_Columns = ['rec.tblTeam.Col1', 'rec.tblTeam.Col2', 'reporting.tblLead.Col4','reporting.tblLead.Col5', 'reporting.tblLead.Col6', 'reporting.tblLead.Col7' ]
+    #return Jinja_list_Columns
 
-def get_filter_condition_list ():
-    Jinja_list_FilterConditions = ['a.col1 = ''abc''', 'a.col3 = ''def''', 'l.col5 = ''abc''' ]
-    return Jinja_list_FilterConditions
+#def get_filter_condition_list ():
+    #Jinja_list_FilterConditions = ['a.col1 = ''abc''', 'a.col3 = ''def''', 'l.col5 = ''abc''' ]
+    #return Jinja_list_FilterConditions
 
-def get_joins_used ():
-    Jinja_list_JoinsUsed = ['inner join (Ltbl) --> rec.tblTeam ', 'inner join (Rtbl) --> reporting.tblLead']
-    return Jinja_list_JoinsUsed
+#def get_joins_used ():
+    #Jinja_list_JoinsUsed = ['inner join (Ltbl) --> rec.tblTeam ', 'inner join (Rtbl) --> reporting.tblLead']
+    #return Jinja_list_JoinsUsed
 
-def get_all_metadata ():
-    Jinja_list_QueryType = ['DML --> Select']
-    Jinja_list_Schemas = ['rec --> tblTeam', 'reporting --> tblLead']
-    Jinja_list_Tables = ['rec.tblTeam', 'reporting.tblLead']
-    Jinja_list_Columns = ['rec.tblTeam.Col1', 'rec.tblTeam.Col2', 'reporting.tblLead.Col4','reporting.tblLead.Col5', 'reporting.tblLead.Col6', 'reporting.tblLead.Col7' ]
-    Jinja_list_FilterConditions = ['a.col1 = ''abc''', 'a.col3 = ''def''', 'l.col5 = ''abc''' ]
-    Jinja_list_JoinsUsed = ['inner join (Ltbl) --> rec.tblTeam ', 'inner join (Rtbl) --> reporting.tblLead']
-    return Jinja_list_QueryType, Jinja_list_Schemas, Jinja_list_Tables, Jinja_list_Columns, Jinja_list_FilterConditions, Jinja_list_JoinsUsed
+#def get_all_metadata ():
+    #Jinja_list_QueryType = ['DML --> Select']
+    #Jinja_list_Schemas = ['rec --> tblTeam', 'reporting --> tblLead']
+    #Jinja_list_Tables = ['rec.tblTeam', 'reporting.tblLead']
+    #Jinja_list_Columns = ['rec.tblTeam.Col1', 'rec.tblTeam.Col2', 'reporting.tblLead.Col4','reporting.tblLead.Col5', 'reporting.tblLead.Col6', 'reporting.tblLead.Col7' ]
+    #Jinja_list_FilterConditions = ['a.col1 = ''abc''', 'a.col3 = ''def''', 'l.col5 = ''abc''' ]
+    #Jinja_list_JoinsUsed = ['inner join (Ltbl) --> rec.tblTeam ', 'inner join (Rtbl) --> reporting.tblLead']
+    #return Jinja_list_QueryType, Jinja_list_Schemas, Jinja_list_Tables, Jinja_list_Columns, Jinja_list_FilterConditions, Jinja_list_JoinsUsed
+
+######### Sample data can be used for testing ##################
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -112,7 +117,7 @@ def display_metadata():
 
         if  (user_dropdown_selection == 'AllMetadata' ):
            Header_For_MetaData = "All Metadata:"
-           Jinja_list_QueryType, Jinja_list_Schemas, Jinja_list_Tables, Jinja_list_Columns, Jinja_list_FilterConditions, Jinja_list_JoinsUsed = get_all_metadata()
+           Jinja_list_QueryType, Jinja_list_Schemas, Jinja_list_Tables, Jinja_list_Columns, Jinja_list_FilterConditions, Jinja_list_JoinsUsed = Q.get_all_metadata()
            Jinja_list_AllMetadata = [{'header': 'Query Types:' , 'data': Jinja_list_QueryType},
                                      {'header': 'Schemas:'     , 'data': Jinja_list_Schemas},
                                      {'header': 'Tables:'      , 'data': Jinja_list_Tables},
@@ -123,27 +128,27 @@ def display_metadata():
 
         elif (user_dropdown_selection == 'Columns' ):
            Header_For_MetaData = "Column Metadata:"
-           Jinja_list_Columns = get_column_list()
+           Jinja_list_Columns = Q.get_column_list()
            return render_template('display_metadata.html', Jinja_list=Jinja_list_Columns, Header_For_MetaData= Header_For_MetaData)
         elif (user_dropdown_selection == 'FilterConditions'):
            Header_For_MetaData = "Filter Conditions Metadata:"
-           Jinja_list_FilterConditions = get_filter_condition_list()
+           Jinja_list_FilterConditions = Q.get_filter_condition_list()
            return render_template('display_metadata.html', Jinja_list=Jinja_list_FilterConditions, Header_For_MetaData= Header_For_MetaData)
         elif (user_dropdown_selection == 'JoinsUsed'):
            Header_For_MetaData = "Joins Used Metadata:"
-           Jinja_list_JoinsUsed = get_joins_used()
+           Jinja_list_JoinsUsed = Q.get_joins_used()
            return render_template('display_metadata.html', Jinja_list=Jinja_list_JoinsUsed, Header_For_MetaData =Header_For_MetaData)
         elif (user_dropdown_selection == 'QueryType'):
            Header_For_MetaData = "Query type Metadata:"
-           Jinja_list_QueryType = get_query_type()
+           Jinja_list_QueryType = Q.get_query_type()
            return render_template('display_metadata.html', Jinja_list=Jinja_list_QueryType, Header_For_MetaData =Header_For_MetaData)
         elif (user_dropdown_selection == 'Schemas'):
             Header_For_MetaData = "Schema Metadata:"
-            Jinja_list_Schemas = get_schema_list()
+            Jinja_list_Schemas = Q.get_schema_list()
             return render_template('display_metadata.html', Jinja_list=Jinja_list_Schemas, Header_For_MetaData=Header_For_MetaData)
         elif (user_dropdown_selection == 'Tables'):
             Header_For_MetaData = "Table Metadata:"
-            Jinja_list_Tables = get_table_list()
+            Jinja_list_Tables = Q.get_table_list()
             return render_template('display_metadata.html', Jinja_list=Jinja_list_Tables,Header_For_MetaData= Header_For_MetaData)
         return render_template('display_metadata.html')
 
