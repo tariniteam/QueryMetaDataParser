@@ -11,12 +11,15 @@ def token_to_list(token):
     return token_list
 
 def get_query_type(first_non_whitespace_tokenize_tuple):
+    query_type_lst = []
     # print(first_non_whitespace_tokenize_tuple)
     token_first_tuple_list = str(first_non_whitespace_tokenize_tuple[0]).split('.')
     query_category = token_first_tuple_list[::-1][0]
     query_type = first_non_whitespace_tokenize_tuple[1]    
-    result = {'Query Category': query_category, 'Query Type' : query_type}
-    return result
+    # result = {'Query Category': query_category, 'Query Type' : query_type}
+    query_type_lst.append('Query Category --> ' + query_category )
+    query_type_lst.append('Query Type --> ' + query_type )    
+    return query_type_lst
 
 def get_non_whitespace_token_list(token_list):
     """
@@ -30,7 +33,7 @@ def get_non_whitespace_token_list(token_list):
 def parse_sql_query(tokens):  
     token_list = token_to_list(tokens)
     token_list_without_wildspace = get_non_whitespace_token_list(token_list)
-    print(token_list)
+    # print(token_list)
     
     #Query Type
     query_type = get_query_type(token_list[0])
@@ -40,8 +43,8 @@ def parse_sql_query(tokens):
     col_lst = get_column_list(token_list)
     print(f'Col List: \n {col_lst}')
 
-    #Table List
-    get_table_list(token_list)
+    #Table List, schema name list, table alias lst
+    table_name_lst, schema_name_lst, table_alias_lst = get_table_list(token_list)
    
 
 
@@ -67,14 +70,49 @@ def get_table_list(token_list):
     stop = 'where'
     start_index, stop_index = get_token_index(token_list,start,stop)
 
-    print(start_index)
-    print(stop_index)
+    # print(start_index)
+    # print(stop_index)
 
+    from_token_list = []
     for index in range(len(token_list)):
         if index >= start_index and index <= stop_index:
-            # print(index) 
-            pass
-     
+            from_token_list.append(token_list[index])
+
+    # print(from_token_list)
+    token_list_without_wildspace = [item for item in from_token_list if str(item[0]) != 'Token.Text.Whitespace'] 
+    # print(token_list_without_wildspace)
+    
+    table_name_lst = []
+    schema_name_lst = []
+    table_alias_lst = []
+    join_lst = []
+    join_lst_with_tbl = []
+
+    for index in range(len(token_list_without_wildspace)):
+        if(index + 3) <= len(token_list_without_wildspace) -1:
+            current = token_list_without_wildspace[index]
+            next = token_list_without_wildspace[index + 1]
+            next_to_next = token_list_without_wildspace[index + 2]
+            next_to_2_next = token_list_without_wildspace[index + 3]
+            
+            if(str(current[0]) == 'Token.Name' and str(next[0]) == 'Token.Punctuation' and str(next[1]) == '.' and str(next_to_next[0]) == 'Token.Name' and str(next_to_2_next[0]) == 'Token.Name'):
+                schema = str(current[1])
+                table = str(next_to_next[1])
+                table_alias = str(next_to_2_next[1])
+                # print(f"schema:{schema} table: {table} table_alias : {table_alias}")
+                table_name_lst.append(str(schema) + '.' + str(table))
+                schema_name_lst.append(str(schema))
+                table_alias_lst.append(str(table_alias) + '-->' + str(table))
+
+            if(str(current[0]) == 'Token.Keyword' and str(current[1]) in ['inner join', 'left join', 'right join']):
+                join_lst.append(current[1])
+
+    
+    for index, join in enumerate(join_lst):
+        join_lst_with_tbl.append(str(table_name_lst[index]) + '--> ' + str(join) + '--> ' + str(table_name_lst[index + 1]))
+
+    print(f"Table List: {table_name_lst} \nSchema List: {schema_name_lst} \nTable Alias List: {table_alias_lst} \nJoin List : {join_lst_with_tbl}")
+    return table_name_lst, schema_name_lst, table_alias_lst
 
 def get_column_list(token_list):
     """
