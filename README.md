@@ -1,31 +1,26 @@
 # QueryMetaDataParser
-Parsing the SQL query and dissect each part of logical SQL Query 
 
-Project Documentation Link - https://github.com/tariniteam/QueryMetaDataParser/blob/main/Project%20Documentation/QMP%20Documentation.docx 
+## **Problem Statement**
 
-Query Metadata Parser Documentation
+## **Solution**
 
-Problem Statement:
+## **Architecture Diagram**
 
-Solution:
+## **Prerequisites**
 
-Architecture Diagram:
-
-Prerequisites:
-
-Tools/Technologies used:
+### Tools/Technologies used
 1.	Python
 2.	SQLite Database
 3.	Jinja Framework
 4.	Bootstrap Framework
 5.	HTML, CSS
 
-Required Python packages:
+### Required Python packages
 1.	Flask
 2.	Sqlite3
 3.	Sqlparse 
 
-Project Structure:
+### Project Structure
 
 ---------QueryMetadataParser
          ├── __init__.py           # setup your app
@@ -50,28 +45,26 @@ Project Structure:
 
 
 
-Technical Implementation:
+## **Technical Implementation**
 
-I.	Prepare your Environment:
+### I.	Prepare your Environment
 
 1.	Create a virtual environment in python 
 
-virtualenv venv sql_parser
+              virtualenv venv sql_parser
 
 2.	Install the python packages in the virtual environment described in the pre-requisite section.
 
-flask
-flask-sqlalchemy
-flask-login
-werkzeug
-pandas
+              flask
+              sql-parser
+              sqlite3
 
 To install packages pip install package_name or you can create a new file requirements.txt (this file will contains one package name each row) and install all packages once using : pip install -r requirements.txt
  
 3.	Create project structure as mentioned in the pre-requisite section.
 
 
-II.	Create Database:
+### II.	Create Database
 
 1.	Create Sqlite Database – QMP_DB.db
 
@@ -84,9 +77,10 @@ II.	Create Database:
  ![alt text](https://github.com/tariniteam/QueryMetaDataParser/blob/main/Project%20Documentation/Implementation%20Screenshots/3.%20user%20table.jpg)
 
 
-III.	Create Web Pages:
+### III.	Create Web Pages
 
 •	Enter user details and login to the Query Metadata Parser portal.
+
 •	The application will validate the user details with the credentials stored in the Sqlite database and if it matches it will redirect to the next page. 
  
  ![alt text]( https://github.com/tariniteam/QueryMetaDataParser/blob/main/Project%20Documentation/Implementation%20Screenshots/4.%20login%20page.jpg)
@@ -118,19 +112,20 @@ III.	Create Web Pages:
 ![alt text]( https://github.com/tariniteam/QueryMetaDataParser/blob/main/Project%20Documentation/Implementation%20Screenshots/11..jpg)
 
 
-IV.	Connect Web Pages using the Flask Framework:
+### IV.	Connect Web Pages using the Flask Framework
 
 •	Connect to sqlite database.
+
 •	Create routing methods to route/redirect web pages based on the GET/POST.
 
-Conclusion:
+## **Conclusion**
 
 
 
-GitHub link:
+## **GitHub link**
 •	https://github.com/tariniteam/QueryMetaDataParser  
 
-Contributors:
+## **Contributors**
 1.	Harsha Navalkar ( https://www.linkedin.com/in/harsha-navalkar-00085515b/ )
 2.	Vikram Mahapatra ()
 
