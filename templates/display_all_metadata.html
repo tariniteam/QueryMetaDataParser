@@ -8,26 +8,39 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 </head>
 <body>
+<center>
+    <h3>Query Metadata Parser Portal</h3>
+    </center>
+<br><br>
+<div class="centered">
+        <div class="container align-self-center">
+            <div class="col-sm-9 col-md-1 col-lg-5 mx-auto col-sm-offset-4 ">
+                <div class="card border-0 shadow rounded-3 my-5 ">
+                    <div class="card-body p-4 p-sm-5 align-self-center">
 
 
-<form action="{{url_for ('display_metadata') }}" method="POST">
-    <h2>{{Header_For_MetaData}}</h2>
-    {% for dict_item in Jinja_list_AllMetadata %}
-      <div>
-      <tr><h3>{{ dict_item.header }}</h3></tr>
-           <ol>
-           {%for x in dict_item.data %}
-            <li>{{ x }}</li>
-           {%endfor%}
-           </ol>
-      </div>
-    {% endfor %}
-</form>
+                     <form action="{{url_for ('display_metadata') }}" method="POST">
+                     <h3>{{Header_For_MetaData}}</h3>
+                         <br>
+                     {% for dict_item in Jinja_list_AllMetadata %}
+                        <div>
+                        <tr><h4><u>{{ dict_item.header }}</u></h4></tr>
+                        <ol>
+                         {%for x in dict_item.data %}
+                            <li>{{ x }}</li>
+                         {%endfor%}
+                       </ol>
+                     </div>
+                   {% endfor %}
+                   </form>
+                          <br>
+                           <div class="col text-center">
+                          <form action="{{url_for ('type_of_metadata') }}" method="POST">
+                          <input type="submit" class="btn btn-primary  fw-bold" name="Check other types of Metadata" value="Check other types of Metadata" action="{{url_for ('type_of_metadata') }}">
+                          </form>
+                           </div>
 
 
-<form action="{{url_for ('type_of_metadata') }}" method="POST">
-    <input type="submit" name="Check other types of Metadata" value="Check other types of Metadata" action="{{url_for ('type_of_metadata') }}">
-</form>
+                    </div> </div></div></div></div>
 </body>
 </html>
-
