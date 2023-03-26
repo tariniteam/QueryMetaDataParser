@@ -1,1 +1,0 @@
-SELECT ColumnName1, ColumnName2 FROM STG.TableName_other WHERE ColumnName3 = 'Title other'
