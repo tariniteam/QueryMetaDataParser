@@ -9,7 +9,6 @@ ALLOWED_EXTENSIONS = {'sql'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-
 def get_query_type ():
     Jinja_list_QueryType = ['DML --> Select']
     return Jinja_list_QueryType
@@ -27,7 +26,7 @@ def get_column_list ():
     return Jinja_list_Columns
 
 def get_filter_condition_list ():
-    Jinja_list_FilterConditions = ['a.col1 = ''abc'''', 'a.col3 = ''def'' ', 'l.col5 = ''abc''' ]
+    Jinja_list_FilterConditions = ['a.col1 = ''abc''', 'a.col3 = ''def''', 'l.col5 = ''abc''' ]
     return Jinja_list_FilterConditions
 
 def get_joins_used ():
@@ -35,12 +34,12 @@ def get_joins_used ():
     return Jinja_list_JoinsUsed
 
 def get_all_metadata ():
-    Jinja_list_QueryType = ['QueryType1', 'QueryType2']
-    Jinja_list_Schemas = ['Schema1', 'Schema2']
-    Jinja_list_Tables = ['Table1', 'Table2']
-    Jinja_list_Columns = ['Column1', 'Column2']
-    Jinja_list_FilterConditions = ['Filter1', 'Filter2']
-    Jinja_list_JoinsUsed = ['Join1', 'Join2']
+    Jinja_list_QueryType = ['DML --> Select']
+    Jinja_list_Schemas = ['rec --> tblTeam', 'reporting --> tblLead']
+    Jinja_list_Tables = ['rec.tblTeam', 'reporting.tblLead']
+    Jinja_list_Columns = ['rec.tblTeam.Col1', 'rec.tblTeam.Col2', 'reporting.tblLead.Col4','reporting.tblLead.Col5', 'reporting.tblLead.Col6', 'reporting.tblLead.Col7' ]
+    Jinja_list_FilterConditions = ['a.col1 = ''abc''', 'a.col3 = ''def''', 'l.col5 = ''abc''' ]
+    Jinja_list_JoinsUsed = ['inner join (Ltbl) --> rec.tblTeam ', 'inner join (Rtbl) --> reporting.tblLead']
     return Jinja_list_QueryType, Jinja_list_Schemas, Jinja_list_Tables, Jinja_list_Columns, Jinja_list_FilterConditions, Jinja_list_JoinsUsed
 
 def allowed_file(filename):
