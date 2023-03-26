@@ -6,13 +6,29 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     </head>  
     <body>  
-        <p>File uploaded successfully</p>  
-        <p>File Name: {{name}}</p>
 
-        <form action="{{url_for ('type_of_metadata') }}" method="POST">
-            <input type="submit" value="Type of Metadata" action="{{url_for ('type_of_metadata') }}">
-        </form>
+<center>
+    <h3>Query Metadata Parser Portal</h3>
+    </center>
+<br><br><br><br>
+<div class="centered">
+        <div class="container align-self-center">
+            <div class="col-sm-9 col-md-1 col-lg-5 mx-auto col-sm-offset-4 ">
+                <div class="card border-0 shadow rounded-3 my-5 ">
+                    <div class="card-body p-4 p-sm-5 align-self-center">
 
+                           <div class="align-self-center" style="margin-bottom:10px">
+                           <p>File uploaded successfully</p>
+                           <p>File Name: {{name}}</p>
+                           </div>
+                           <br><br>
+
+                        <div class="align-self-center" style="margin-bottom:10px">
+                             <form action="{{url_for ('type_of_metadata') }}" method="POST" enctype="multipart/form-data">
+                            <input type="submit" class="btn btn-primary fw-bold" value="Type of Metadata" action="{{url_for ('type_of_metadata') }}"/>
+                            </form>
+                        </div>
+
+                    </div> </div></div></div></div>
     </body>
-
 </html>
