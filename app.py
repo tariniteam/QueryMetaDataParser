@@ -11,26 +11,27 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 def get_query_type ():
-    Jinja_list_QueryType = ['QueryType1', 'QueryType2']
+    Jinja_list_QueryType = ['DML --> Select']
     return Jinja_list_QueryType
+
 def get_schema_list ():
-    Jinja_list_Schemas = ['Schema1', 'Schema2']
+    Jinja_list_Schemas = ['rec --> tblTeam', 'reporting --> tblLead']
     return Jinja_list_Schemas
 
 def get_table_list ():
-    Jinja_list_Tables = ['Table1', 'Table2']
+    Jinja_list_Tables = ['rec.tblTeam', 'reporting.tblLead']
     return Jinja_list_Tables
 
 def get_column_list ():
-    Jinja_list_Columns = ['Column1', 'Column2']
+    Jinja_list_Columns = ['rec.tblTeam.Col1', 'rec.tblTeam.Col2', 'reporting.tblLead.Col4','reporting.tblLead.Col5', 'reporting.tblLead.Col6', 'reporting.tblLead.Col7' ]
     return Jinja_list_Columns
 
 def get_filter_condition_list ():
-    Jinja_list_FilterConditions = ['Filter1', 'Filter2']
+    Jinja_list_FilterConditions = ['a.col1 = ''abc'''', 'a.col3 = ''def'' ', 'l.col5 = ''abc''' ]
     return Jinja_list_FilterConditions
 
 def get_joins_used ():
-    Jinja_list_JoinsUsed = ['Join1', 'Join2']
+    Jinja_list_JoinsUsed = ['inner join (Ltbl) --> rec.tblTeam ', 'inner join (Rtbl) --> reporting.tblLead']
     return Jinja_list_JoinsUsed
 
 def get_all_metadata ():
