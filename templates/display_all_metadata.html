@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Display Metadata</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap_style.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 </head>
 <body>
 
@@ -12,13 +15,15 @@
     {% for dict_item in Jinja_list_AllMetadata %}
       <div>
       <tr><h3>{{ dict_item.header }}</h3></tr>
-      <tr>{{ dict_item.data }}</tr>
+           <ol>
+           {%for x in dict_item.data %}
+            <li>{{ x }}</li>
+           {%endfor%}
+           </ol>
       </div>
     {% endfor %}
 </form>
 
-
-<input type="submit" name="Download Data" value="Download Data"><br>
 
 <form action="{{url_for ('type_of_metadata') }}" method="POST">
     <input type="submit" name="Check other types of Metadata" value="Check other types of Metadata" action="{{url_for ('type_of_metadata') }}">
