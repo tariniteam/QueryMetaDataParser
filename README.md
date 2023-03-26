@@ -2,11 +2,60 @@
 
 ## **Problem Statement**
 
+The Query Metadata Parser solves many common and difficult SQL, including th following:
+1.	Checks SQL syntax offline so that you can validate syntax without connecting to a database.
+2.	It does an in-depth analysis of SQL Query passed as an input and comeup with SQL parse tree.
+3.	It help in preventing SQL injection by giving information of how the predicates are used in the query.
+4.	It help in identifying the how the table objects are used in the extraction of data from datawarehouse. 
+
 ## **Solution**
+
+The Query metadata parser is used to deconstruct any sql query into individual components, where each components refers to some section of query construct. This help the analyst to get the catalog ready with the information of all the entity, attributes which are being used frequently by users.
+The QMP has exposed its method and have UI where user can directly upload the query and get the parsed metadata delivered on the screen itself and also it has functionalty to download the desconstructed query. The various methods which are exposed for users are:
+•	get_query_type 
+◦	This method will give the information any the query type which could be DML or DDL or TCL statements
+•	get_schema_list
+◦	This will list out all the schemas where the objects are residing in database from the input query
+•	get_table_list 
+◦	This will list out all the tables involved in the sql query passed to the engine
+•	get_column_list
+◦	This will list out all the columns involved in the query along with its parent tables
+•	get_filter_condition_list
+◦	This will list out all the predicates used in the query.
+•	get_joins_used 
+◦	This will list of “kind of joins” used to join the various tables used in the sql query passed by user to system
+•	get_all_metadata
+◦	This will list out all the metadata which include tables, columns, predeicates, joins, schemas etc.
+
 
 ## **Architecture Diagram**
 
 ![alt text](https://github.com/tariniteam/QueryMetaDataParser/blob/main/Project%20Documentation/Implementation%20Screenshots/QMP%20Architecture%20Diagram%20Final.png)
+
+## **Parser**
+The parser deconstructs the SQL query based on the SQL syntax, identifies each of the query components, and then creates an Abstract Syntax Tree in a hierarchical format. 
+
+Add Diagram here 
+
+## **Lexical Analysis/Tokenization**
+
+The query parser break the the entire sql statment to various tokens, each token refer to one or other part of query. It forms a list of tokens, which will there after used to do the lexical analysis.
+
+Add Diagram here 
+
+## **Usage of Query Metadata Parser**
+
+Help in identifying the mostly used tables in the data warehouse.
+Help in knowing how each table are being queried and what kind of predicates are used in general to extract the data
+Help in knowing how various tables are joined with each other.
+Help in identifying various query pattern.
+
+Having all above metrics available below question can be answered:
+Popular tales and the attributes used in reporting.
+Data set schemas metadata for perf optimization.
+Joins information which will help in extablish the need for indexing and query tunning 
+
+
 
 ## **Prerequisites**
 
@@ -125,9 +174,11 @@ To install packages pip install package_name or you can create a new file requir
 
 
 ## **GitHub link**
+
 •	https://github.com/tariniteam/QueryMetaDataParser  
 
 ## **Contributors**
+
 1.	Harsha Navalkar ( https://www.linkedin.com/in/harsha-navalkar-00085515b/ )
-2.	Vikram Mahapatra ()
+2.	Vikram Mahapatra (https://www.linkedin.com/in/vikrammahapatra  )
 
